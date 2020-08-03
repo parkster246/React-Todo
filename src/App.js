@@ -33,8 +33,9 @@ function editTask(obj, id) {
 
 function handleClearing(obj) {
   const filtered = obj.todo.filter(item => item.completed === false)
+  const filtered2 = obj.searched.filter(item => item.completed === false)
   obj.todo = filtered;
-  obj.searched = filtered;
+  obj.searched = filtered2;
   return obj;
 }
 function searching(obj, string) {
