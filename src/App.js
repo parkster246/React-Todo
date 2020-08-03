@@ -33,19 +33,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todo : [
-        {
-          task: 'Organize Garage',
-          id: 1528817077286,
-          completed: false
-        },
-        {
-          task: 'Bake Cookies',
-          id: 1528817084358,
-          completed: false
-        }
-      ]
+      todo : []
+      
     }
+  }
+  componentDidMount() {
+    if (localStorage.getItem("todo")) {
+      this.setState({todo : JSON.parse(localStorage.getItem("todo"))});
+    } else {
+      localStorage.setItem("todo", JSON.stringify([]));
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem("todo", JSON.stringify(this.state.todo));
   }
   handleAdd = task => {
     this.setState(addTask(this.state, task));
@@ -61,8 +62,8 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
+      <div className='app'>
+        <h2>The Todo List</h2>
         <TodoList todoChange={this.todoChange} list={this.state.todo}/>
         <TodoForm handleClear={this.handleClear} onAdd={this.handleAdd}/>
       </div>
